@@ -1,0 +1,420 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+mycode.exe -- emu8086 assembler version: 4.05  
+ 
+[ 2021/6/23  --  16:28:19 ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       DATA SEGMENT
+[   2]    0000: 00 00 00                              NUM1   DB  03H DUP(0)
+[   3]    0003: 00 00 00                              NUM    DB  03H DUP(0)
+[   4]        :                                       DATA ENDS
+[   5]        :                                       
+[   6]        :                                       STACK SEGMENT
+[   7]    0010: 00 00 00 00 00 00 00 00 00 00 00 00   DW  100 DUP(0)
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00 00 00 00 00 
+                00 00 00 00 00 00 00 00             
+[   8]        :                                       STACK ENDS
+[   9]        :                                       
+[  10]        :                                       CODE SEGMENT
+[  11]        :                                       ASSUME CS:CODE,DS:DATA,SS:STACK
+[  12]        :                                       PORTA  EQU 30H
+[  13]        :                                       PORTB  EQU 32H
+[  14]        :                                       PORTC  EQU 34H
+[  15]        :                                       PORT8255   EQU  36H
+[  16]    00E0:                                       MAIN PROC  FAR
+[  17]    00E0: B8 00 00                              START: MOV AX,DATA
+[  18]    00E3: 8E D8                                 MOV DS,AX
+[  19]    00E5: BA 36 00                              MOV DX,PORT8255
+[  20]    00E8: B0 81                                 MOV AL,81H
+[  21]    00EA: EE                                    OUT DX,AL
+[  22]    00EB:                                       LOPL:
+[  23]    00EB: 32 E4                                 XOR    AH,AH
+[  24]    00ED: E8 8B 01                              CALL   KEY
+[  25]    00F0: 80 FC 00                              CMP    AH,00H
+[  26]    00F3: 74 F6                                 JZ     LOPL
+[  27]    00F5: 3C 0F                                 CMP    AL,0FH
+[  28]    00F7: 74 2E                                 JZ     CCCL
+[  29]    00F9: 3C 0A                                 CMP    AL,0AH
+[  30]    00FB: 74 EE                                 JZ     LOPL
+[  31]    00FD: 73 EC                                 JNC    LOPL
+[  32]    00FF: E6 32                                 OUT    32H,AL
+[  33]    0101: BE 03 00                              LOPL2:   LEA    SI,NUM
+[  34]    0104: 88 04                                 MOV    [SI],AL
+[  35]    0106: 50                                    PUSH   AX
+[  36]    0107:                                       LOPL1:
+[  37]    0107: 32 E4                                 XOR    AH,AH
+[  38]    0109: E8 6F 01                              CALL   KEY
+[  39]    010C: 80 FC 00                              CMP    AH,00H
+[  40]    010F: 74 F6                                 JZ     LOPL1
+[  41]    0111: 3C 0F                                 CMP    AL,0FH
+[  42]    0113: 74 12                                 JZ     CCCL
+[  43]    0115: 3C 0A                                 CMP    AL,0AH
+[  44]    0117: 74 1A                                 JZ     XX1
+[  45]    0119: 3C 0B                                 CMP    AL,0BH
+[  46]    011B: 74 5D                                 JZ     XX2
+[  47]    011D: 3C 0C                                 CMP    AL,0CH
+[  48]    011F: 74 0C                                 JZ     XX3D
+[  49]    0121: 3C 0D                                 CMP    AL,0DH
+[  50]    0123: 74 0B                                 JZ     XX4D
+[  51]    0125: EB E0                                 JMP    LOPL1
+[  52]    0127:                                       CCCL:
+[  53]    0127: B0 00                                 MOV    AL,00H
+[  54]    0129: E6 32                                 OUT    32H,AL
+[  55]    012B: EB BE                                 JMP    LOPL
+[  56]    012D: E8 9A 00                              XX3D:      CALL   XX3
+[  57]        :                                       
+[  58]        :                                       
+[  59]        :                                       
+[  60]        :                                       
+[  61]        :                                       
+[  62]        :                                       
+[  63]        :                                       
+[  64]        :                                       
+[  65]        :                                       
+[  66]        :                                       
+[  67]        :                                       
+[  68]        :                                       
+[  69]        :                                       
+[  70]        :                                       
+[  71]        :                                       
+[  72]        :                                       
+[  73]        :                                       
+[  74]        :                                       
+[  75]        :                                       
+[  76]        :                                       
+[  77]        :                                       
+[  78]        :                                       
+[  79]        :                                       
+[  80]        :                                       
+[  81]        :                                       
+[  82]        :                                       
+[  83]    0130: E8 F2 00                              XX4D:      CALL   XX4
+[  84]        :                                       MAIN ENDP
+[  85]    0133:                                       XX1  PROC
+[  86]    0133: 90                                    NOP                             ;¼Ó
+[  87]        :                                       
+[  88]    0134: 32 E4                                 LOPL3:     XOR    AH,AH
+[  89]    0136: E8 42 01                              CALL   KEY
+[  90]    0139: 80 FC 00                              CMP    AH,00H
+[  91]    013C: 74 F6                                 JZ     LOPL3
+[  92]    013E: 3C 0F                                 CMP    AL,0FH
+[  93]    0140: 74 E5                                 JZ    CCCL
+[  94]    0142: 3C 0A                                 CMP    AL,0AH
+[  95]    0144: 74 EE                                 JZ     LOPL3
+[  96]    0146: 73 EC                                 JNC    LOPL3
+[  97]    0148: E6 32                                 OUT    32H,AL
+[  98]        :                                       
+[  99]    014A: 50                                    PUSH   AX
+[ 100]    014B: BE 03 00                              LEA    SI,NUM
+[ 101]    014E: 88 44 01                              MOV    [SI+1],AL
+[ 102]    0151:                                       LOPL4:
+[ 103]    0151: 32 E4                                 XOR    AH,AH
+[ 104]    0153: E8 25 01                              CALL   KEY
+[ 105]    0156: 80 FC 00                              CMP    AH,00H
+[ 106]    0159: 74 F6                                 JZ     LOPL4
+[ 107]    015B: 3C 0F                                 CMP    AL,0FH
+[ 108]    015D: 74 C8                                 JZ    CCCL
+[ 109]    015F: 3C 0E                                 CMP    AL,0EH
+[ 110]    0161: 74 02                                 JZ     XXX1
+[ 111]    0163: EB EC                                 JMP    LOPL4
+[ 112]    0165:                                       XXX1:
+[ 113]    0165: BE 03 00                              LEA    SI,NUM
+[ 114]    0168: 8A 04                                 MOV    AL,[SI]
+[ 115]    016A: 24 0F                                 AND    AL,0FH
+[ 116]    016C: 8A 54 01                              MOV    DL,[SI+1]
+[ 117]    016F: 80 E2 0F                              AND    DL,0FH
+[ 118]    0172: 02 C2                                 ADD    AL,DL
+[ 119]    0174: 27                                    DAA
+[ 120]    0175: E6 32                                 OUT    32H,AL
+[ 121]    0177: E9 71 FF                              JMP    LOPL
+[ 122]        :                                       XX1  ENDP
+[ 123]    017A:                                       XX2 PROC
+[ 124]    017A: 90                                    NOP                             ;¼õ
+[ 125]    017B: 32 E4                                 LOPL5:     XOR    AH,AH
+[ 126]    017D: E8 FB 00                              CALL   KEY
+[ 127]    0180: 80 FC 00                              CMP    AH,00H
+[ 128]        :                                       
+[ 129]        :                                       
+[ 130]    0183: 74 F6                                 JZ     LOPL5
+[ 131]    0185: 3C 0F                                 CMP    AL,0FH
+[ 132]    0187: 74 9E                                 JZ    CCCL
+[ 133]    0189: 3C 0A                                 CMP    AL,0AH
+[ 134]    018B: 74 EE                                 JZ     LOPL5
+[ 135]    018D: 73 EC                                 JNC    LOPL5
+[ 136]    018F: E6 32                                 OUT    32H,AL
+[ 137]    0191: 50                                    PUSH   AX
+[ 138]    0192: BE 03 00                              LEA    SI,NUM
+[ 139]    0195: 88 44 01                              MOV    [SI+1],AL
+[ 140]    0198:                                       LOPL6:
+[ 141]    0198: 32 E4                                 XOR    AH,AH
+[ 142]    019A: E8 DE 00                              CALL   KEY
+[ 143]    019D: 80 FC 00                              CMP    AH,00H
+[ 144]    01A0: 74 F6                                 JZ     LOPL6
+[ 145]    01A2: 3C 0F                                 CMP    AL,0FH
+[ 146]    01A4: 74 1D                                 JZ    CCCL7
+[ 147]    01A6: 3C 0E                                 CMP    AL,0EH
+[ 148]    01A8: 74 02                                 JZ     XXX2
+[ 149]    01AA: EB EC                                 JMP    LOPL6
+[ 150]    01AC:                                       XXX2:
+[ 151]    01AC: BE 03 00                              LEA    SI,NUM
+[ 152]    01AF: 8A 04                                 MOV    AL,[SI]
+[ 153]    01B1: 24 0F                                 AND    AL,0FH
+[ 154]    01B3: 8A 54 01                              MOV    DL,[SI+1]
+[ 155]    01B6: 80 E2 0F                              AND    DL,0FH
+[ 156]    01B9: 2A C2                                 SUB    AL,DL
+[ 157]    01BB: 04 00                                 ADD    AL,00H
+[ 158]    01BD: 27                                    DAA
+[ 159]    01BE: E6 32                                 OUT    32H,AL
+[ 160]    01C0: E9 28 FF                              JMP    LOPL
+[ 161]    01C3:                                       CCCL7:
+[ 162]    01C3: B0 00                                 MOV    AL,00H
+[ 163]    01C5: E6 32                                 OUT    32H,AL
+[ 164]    01C7: E9 21 FF                              JMP    LOPL
+[ 165]        :                                       XX2  ENDP
+[ 166]    01CA:                                       XX3  PROC
+[ 167]    01CA:                                       LOPL7:
+[ 168]    01CA: 32 E4                                 XOR    AH,AH
+[ 169]    01CC: E8 AC 00                              CALL   KEY               ;³Ë
+[ 170]    01CF: 80 FC 00                              CMP    AH,00H
+[ 171]    01D2: 74 F6                                 JZ     LOPL7
+[ 172]    01D4: 3C 0F                                 CMP    AL,0FH
+[ 173]    01D6: 74 3F                                 JZ    CCCL2
+[ 174]    01D8: 3C 0A                                 CMP    AL,0AH
+[ 175]        :                                       
+[ 176]    01DA: 74 EE                                 JZ     LOPL7
+[ 177]    01DC: 73 EC                                 JNC    LOPL7
+[ 178]    01DE: E6 32                                 OUT    32H,AL
+[ 179]    01E0: 50                                    PUSH   AX
+[ 180]    01E1: BE 03 00                              LEA    SI,NUM
+[ 181]    01E4: 88 44 01                              MOV    [SI+1],AL
+[ 182]    01E7:                                       LOPL8:
+[ 183]    01E7: 32 E4                                 XOR    AH,AH
+[ 184]    01E9: E8 8F 00                              CALL   KEY
+[ 185]    01EC: 80 FC 00                              CMP    AH,00H
+[ 186]    01EF: 74 F6                                 JZ     LOPL8
+[ 187]    01F1: 3C 0F                                 CMP    AL,0FH
+[ 188]    01F3: 74 29                                 JZ    CCCL3
+[ 189]    01F5: 3C 0E                                 CMP    AL,0EH
+[ 190]    01F7: 74 02                                 JZ     XXX3
+[ 191]    01F9: EB EC                                 JMP    LOPL8
+[ 192]    01FB:                                       XXX3:
+[ 193]    01FB: BE 03 00                              LEA    SI,NUM
+[ 194]        :                                       
+[ 195]    01FE: 8A 04                                 MOV    AL,[SI]
+[ 196]    0200: 24 0F                                 AND    AL,0FH
+[ 197]    0202: 8A 54 01                              MOV    DL,[SI+1]
+[ 198]    0205: 80 E2 0F                              AND    DL,0FH
+[ 199]    0208: F6 E2                                 MUL    DL
+[ 200]    020A: D4 0A                                 AAM
+[ 201]    020C: B1 04                                 MOV    CL,4
+[ 202]    020E: D2 E4                                 SAL    AH,CL
+[ 203]    0210: 0A C4                                 OR     AL,AH
+[ 204]    0212: E6 32                                 OUT    32H,AL
+[ 205]    0214: E9 D4 FE                              JMP    LOPL
+[ 206]    0217:                                       CCCL2:
+[ 207]    0217: B0 00                                 MOV    AL,00H
+[ 208]    0219: E6 32                                 OUT    32H,AL
+[ 209]    021B: E9 CD FE                              JMP    LOPL
+[ 210]    021E:                                       CCCL3:
+[ 211]    021E: B0 00                                 MOV    AL,00H
+[ 212]    0220: E6 32                                 OUT    32H,AL
+[ 213]    0222: E9 C6 FE                              JMP    LOPL
+[ 214]        :                                       XX3  ENDP
+[ 215]    0225:                                       XX4  PROC                            ;³ý
+[ 216]    0225: 32 E4                                 LOPL9:     XOR    AH,AH
+[ 217]    0227: E8 51 00                              CALL   KEY
+[ 218]    022A: 80 FC 00                              CMP    AH,00H
+[ 219]    022D: 74 F6                                 JZ     LOPL9
+[ 220]    022F: 3C 0F                                 CMP    AL,0FH
+[ 221]    0231: 74 41                                 JZ    CCCL5
+[ 222]    0233: 3C 0A                                 CMP    AL,0AH
+[ 223]        :                                       
+[ 224]    0235: 74 EE                                 JZ     LOPL9
+[ 225]    0237: 73 EC                                 JNC    LOPL9
+[ 226]    0239: E6 32                                 OUT    32H,AL
+[ 227]    023B: 50                                    PUSH   AX
+[ 228]    023C: BE 03 00                              LEA    SI,NUM
+[ 229]    023F: 88 44 01                              MOV    [SI+1],AL
+[ 230]    0242: 32 E4                                 LOPL10:    XOR    AH,AH
+[ 231]    0244: E8 34 00                              CALL   KEY
+[ 232]    0247: 80 FC 00                              CMP    AH,00H
+[ 233]    024A: 74 F6                                 JZ     LOPL10
+[ 234]    024C: 3C 0F                                 CMP    AL,0FH
+[ 235]    024E: 74 1D                                 JZ    CCCL4
+[ 236]    0250: 3C 0E                                 CMP    AL,0EH
+[ 237]    0252: 74 02                                 JZ     XXX4
+[ 238]    0254: EB EC                                 JMP    LOPL10
+[ 239]    0256:                                       XXX4:
+[ 240]    0256: BE 03 00                              LEA    SI,NUM
+[ 241]    0259: 8A 04                                 MOV    AL,[SI]
+[ 242]    025B: 24 0F                                 AND    AL,0FH
+[ 243]    025D: 8A 5C 01                              MOV    BL,[SI+1]
+[ 244]    0260: 80 E3 0F                              AND    BL,0FH
+[ 245]    0263: 25 0F 00                              AND    AX,000FH
+[ 246]    0266: F6 F3                                 DIV    BL
+[ 247]    0268: E6 32                                 OUT    32H,AL
+[ 248]    026A: E9 7E FE                              JMP    LOPL
+[ 249]    026D:                                       CCCL4:
+[ 250]    026D: B0 00                                 MOV    AL,00H
+[ 251]    026F: E6 32                                 OUT    32H,AL
+[ 252]    0271: E9 77 FE                              JMP    LOPL
+[ 253]    0274:                                       CCCL5:
+[ 254]    0274: B0 00                                 MOV    AL,00H
+[ 255]    0276: E6 32                                 OUT    32H,AL
+[ 256]    0278: E9 70 FE                              JMP    LOPL
+[ 257]        :                                       XX4  ENDP
+[ 258]    027B:                                       KEY     PROC
+[ 259]    027B: 90                                    NOP
+[ 260]    027C: BE 00 00                              LEA SI,NUM1
+[ 261]    027F: B0 0E                                 MOV AL,0EH
+[ 262]    0281: E6 30                                 OUT 30H,AL
+[ 263]    0283: E4 34                                 IN  AL,34H
+[ 264]    0285: 3C 07                                 CMP AL,07H
+[ 265]    0287: 74 70                                 JZ  LL7
+[ 266]    0289: 3C 0B                                 CMP AL,0BH
+[ 267]    028B: 74 70                                 JZ  LL8
+[ 268]    028D: 3C 0D                                 CMP AL,0DH
+[ 269]        :                                       
+[ 270]    028F: 74 70                                 JZ  LL9
+[ 271]    0291: 3C 0E                                 CMP AL,0EH
+[ 272]    0293: 74 44                                 JZ  LDIV
+[ 273]    0295: B0 0D                                 SS1:    MOV AL,0DH
+[ 274]    0297: E6 30                                 OUT 30H,AL
+[ 275]    0299: E4 34                                 IN  AL,34H
+[ 276]    029B: 3C 07                                 CMP AL,07H
+[ 277]    029D: 74 4E                                 JZ  LL4
+[ 278]    029F: 3C 0B                                 CMP AL,0BH
+[ 279]    02A1: 74 4E                                 JZ  LL5
+[ 280]    02A3: 3C 0D                                 CMP AL,0DH
+[ 281]    02A5: 74 4E                                 JZ  LL6
+[ 282]    02A7: 3C 0E                                 CMP AL,0EH
+[ 283]    02A9: 74 62                                 JZ  LMUL
+[ 284]    02AB: B0 0B                                 SS2:    MOV AL,0BH
+[ 285]        :                                       
+[ 286]    02AD: E6 30                                 OUT 30H,AL
+[ 287]    02AF: E4 34                                 IN  AL,34H
+[ 288]    02B1: 3C 07                                 CMP AL,07H
+[ 289]    02B3: 74 2C                                 JZ  LL1
+[ 290]    02B5: 3C 0B                                 CMP AL,0BH
+[ 291]    02B7: 74 2C                                 JZ  LL2
+[ 292]    02B9: 3C 0D                                 CMP AL,0DH
+[ 293]    02BB: 74 2C                                 JZ  LL3
+[ 294]    02BD: 3C 0E                                 CMP AL,0EH
+[ 295]    02BF: 74 48                                 JZ  LSUB
+[ 296]    02C1: B0 07                                 SS3:      MOV AL,07H
+[ 297]    02C3: E6 30                                 OUT 30H,AL
+[ 298]    02C5: E4 34                                 IN  AL,34H
+[ 299]    02C7: 3C 07                                 CMP AL,07H
+[ 300]    02C9: 74 4A                                 JZ  SCLC
+[ 301]    02CB: 3C 0B                                 CMP AL,0BH
+[ 302]    02CD: 74 0E                                 JZ  LL0
+[ 303]    02CF: 3C 0D                                 CMP AL,0DH
+[ 304]    02D1: 74 3E                                 JZ  LEQU
+[ 305]    02D3: 3C 0E                                 CMP AL,0EH
+[ 306]    02D5: 74 2E                                 JZ  LADD
+[ 307]    02D7: EB 42                                 JMP KCLC
+[ 308]    02D9: B0 0D                                 LDIV:   MOV AL,0DH
+[ 309]    02DB: EB 3A                                 JMP LCLC
+[ 310]    02DD: B0 00                                 LL0:    MOV AL,00H
+[ 311]    02DF: EB 36                                 JMP LCLC
+[ 312]    02E1: B0 01                                 LL1:     MOV AL,01H
+[ 313]    02E3: EB 32                                 JMP LCLC
+[ 314]    02E5: B0 02                                 LL2:     MOV AL,02H
+[ 315]        :                                       
+[ 316]    02E7: EB 2E                                 JMP LCLC
+[ 317]    02E9: B0 03                                 LL3:     MOV AL,03H
+[ 318]    02EB: EB 2A                                 JMP LCLC
+[ 319]    02ED: B0 04                                 LL4:     MOV AL,04H
+[ 320]    02EF: EB 26                                 JMP LCLC
+[ 321]    02F1: B0 05                                 LL5:     MOV AL,05H
+[ 322]    02F3: EB 22                                 JMP LCLC
+[ 323]    02F5: B0 06                                 LL6:     MOV AL,06H
+[ 324]    02F7: EB 1E                                 JMP LCLC
+[ 325]    02F9: B0 07                                 LL7:     MOV AL,07H
+[ 326]    02FB: EB 1A                                 JMP LCLC
+[ 327]    02FD: B0 08                                 LL8:     MOV AL,08H
+[ 328]    02FF: EB 16                                 JMP LCLC
+[ 329]    0301: B0 09                                 LL9:     MOV AL,09H
+[ 330]    0303: EB 12                                 JMP LCLC
+[ 331]    0305: B0 0A                                 LADD:   MOV AL,0AH
+[ 332]    0307: EB 0E                                 JMP LCLC
+[ 333]    0309: B0 0B                                 LSUB:   MOV AL,0BH
+[ 334]    030B: EB 0A                                 JMP LCLC
+[ 335]    030D: B0 0C                                 LMUL:   MOV AL,0CH
+[ 336]    030F: EB 06                                 JMP LCLC
+[ 337]    0311: B0 0E                                 LEQU:   MOV AL,0EH
+[ 338]    0313: EB 02                                 JMP LCLC
+[ 339]    0315: B0 0F                                 SCLC:   MOV AL,0FH
+[ 340]    0317: 88 04                                 LCLC:   MOV [SI],AL
+[ 341]    0319: B4 01                                 MOV AH,01H
+[ 342]    031B: C3                                    KCLC:          RET
+[ 343]        :                                       KEY     ENDP
+[ 344]        :                                       CODE ENDS
+[ 345]        :                                       END START
+[ 346]        :                                       
+[ 347]        :                                       
+[ 348]        :                                       
+[ 349]        :                                       
+ 
+===================================================================================================
+ 
+EXE HEADER - bytes from 0000 to 01FF inclusive.
+
+0000: 4D      -   exe signature (M)
+0001: 5A      -   exe signature (Z)
+0002: 1C      -   bytes on last page (l.byte)
+0003: 01      -   bytes on last page (h.byte)
+0004: 03      -   512 byte pages in file (l.byte)
+0005: 00      -   512 byte pages in file (h.byte)
+0006: 01      -   relocations (l.byte)
+0007: 00      -   relocations (h.byte)
+0008: 20      -   paragraphs in header (l.byte)
+0009: 00      -   paragraphs in header (h.byte)
+000A: 00      -   minimum memory (l.byte)
+000B: 00      -   minimum memory (h.byte)
+000C: FF      -   maximum memory (l.byte)
+000D: FF      -   maximum memory (h.byte)
+000E: 01      -   SS - stack segment (l.byte)
+000F: 00      -   SS - stack segment (h.byte)
+0010: C8      -   SP - stack pointer (l.byte)
+0011: 00      -   SP - stack pointer (h.byte)
+0012: D7      -   check sum (l.byte)
+0013: 07      -   check sum (h.byte)
+0014: 00      -   IP - instruction pointer (l.byte)
+0015: 00      -   IP - instruction pointer (h.byte)
+0016: 0E      -   CS - code segment (l.byte)
+0017: 00      -   CS - code segment (h.byte)
+0018: 1E      -   relocation table adress (l.byte)
+0019: 00      -   relocation table adress (h.byte)
+001A: 00      -   overlay number (l.byte)
+001B: 00      -   overlay number (h.byte)
+001C: 01      -   signature (l.byte)
+001D: 00      -   signature (h.byte)
+001E: 01      -   relocation table - offset inside segment (l.byte)
+001F: 00      -   relocation table - offset inside segment (h.byte)
+0020: 0E      -   relocation table - segment anchor (l.byte)
+0021: 00      -   relocation table - segment anchor (h.byte)
+0022 to 01FF  -   reserved relocation area  (00) 
+
+
+
+
+===================================================================================================
